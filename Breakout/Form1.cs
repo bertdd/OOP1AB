@@ -62,23 +62,24 @@ public partial class Form1 : Form
   {
     var oldLocation = ball.Location;
 
-    var max = Width - ball.Width - 20;
-    if (oldLocation.X < max)
-    {
-      DoMove(oldLocation, max);
-    }
-    else
+    var maxX = Width - ball.Width - 20;
+    if (oldLocation.X >= maxX || oldLocation.X < 0)
     {
       XDirection = -XDirection;
-      DoMove(oldLocation, max);
     }
+    var maxY = Height - ball.Height - 60;
+    if (oldLocation.Y >= maxY || oldLocation.Y < 0)
+    {
+      YDirection = -YDirection;
+    }
+
+    DoMove(oldLocation, maxX, maxY);
   }
 
-  private void DoMove(Point oldLocation, int max)
+  private void DoMove(Point oldLocation, int maxX, int maxY)
   {
-    var newLocation = new Point(Math.Min(oldLocation.X + (XDirection * 10), max),
-                                          oldLocation.Y + (YDirection * 10));
-    ball.Location = newLocation;
+    ball.Location = new Point(Math.Min(oldLocation.X + (XDirection * 10), maxX),
+                              Math.Min(oldLocation.Y + (YDirection * 10), maxY));
   }
 
   int XDirection = 1;
