@@ -37,17 +37,19 @@
       // paddle
       // 
       paddle.BackColor = Color.White;
-      paddle.Location = new Point(246, 545);
+      paddle.Location = new Point(320, 698);
+      paddle.Margin = new Padding(4, 0, 4, 0);
       paddle.Name = "paddle";
-      paddle.Size = new Size(68, 32);
+      paddle.Size = new Size(88, 41);
       paddle.TabIndex = 0;
       // 
       // ball
       // 
       ball.BackColor = Color.LightCoral;
-      ball.Location = new Point(212, 264);
+      ball.Location = new Point(276, 338);
+      ball.Margin = new Padding(4, 0, 4, 0);
       ball.Name = "ball";
-      ball.Size = new Size(20, 20);
+      ball.Size = new Size(26, 26);
       ball.TabIndex = 1;
       // 
       // timer
@@ -58,14 +60,16 @@
       // 
       // Form1
       // 
-      AutoScaleDimensions = new SizeF(10F, 25F);
+      AutoScaleDimensions = new SizeF(13F, 32F);
       AutoScaleMode = AutoScaleMode.Font;
       BackColor = Color.Black;
-      ClientSize = new Size(540, 640);
+      ClientSize = new Size(702, 819);
       Controls.Add(ball);
       Controls.Add(paddle);
+      Margin = new Padding(4, 4, 4, 4);
       Name = "Form1";
       Text = "Breakout Versie ITSD01AB";
+      SizeChanged += Form1_SizeChanged;
       Resize += Form1_Resize;
       ResumeLayout(false);
     }

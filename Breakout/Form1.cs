@@ -1,3 +1,5 @@
+using Game;
+
 namespace Breakout;
 
 public partial class Form1 : Form
@@ -5,6 +7,13 @@ public partial class Form1 : Form
   public Form1()
   {
     InitializeComponent();
+    game = new BreakoutGame(Width, Width)
+    {
+      Paddle = new Paddle(paddle.Width, paddle.Location),
+      Ball = new Ball(ball.Width, ball.Height, ball.Location),
+    };
+    game.Paddle.Moved += (o, e) => paddle.Location = game.Paddle.Location;
+    game.Ball.Moved += (o, e) => ball.Location = game.Ball.Location;
   }
 
   protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -12,37 +21,14 @@ public partial class Form1 : Form
     switch (keyData)
     {
       case Keys.Left:
-        MovePaddleLeft();
+        game.MovePaddleLeft();
         return true;
 
       case Keys.Right:
-        MovePaddleRight();
+        game.MovePaddleRight();
         return true;
     }
     return base.ProcessCmdKey(ref msg, keyData);
-  }
-
-  private int step = 50;
-
-  private void MovePaddleLeft()
-  {
-    var oldLocation = paddle.Location;
-    if (oldLocation.X > 0)
-    {
-      var newLocation = new Point(Math.Max(oldLocation.X - step, 0), oldLocation.Y);
-      paddle.Location = newLocation;
-    }
-  }
-
-  private void MovePaddleRight()
-  {
-    var oldLocation = paddle.Location;
-    var max = Width - paddle.Width - 20;
-    if (oldLocation.X < max)
-    {
-      var newLocation = new Point(Math.Min(oldLocation.X + step, max), oldLocation.Y);
-      paddle.Location = newLocation;
-    }
   }
 
   private void Form1_Resize(object sender, EventArgs e)
@@ -50,39 +36,20 @@ public partial class Form1 : Form
     var oldLocation = paddle.Location;
     var max = Width - paddle.Width - 20;
     var newLocation = new Point(Math.Min(oldLocation.X, max), oldLocation.Y);
-    paddle.Location = newLocation;
+    if (game != null) {
+      game.Paddle.Location = newLocation;
+    }
   }
 
   private void timer_Tick(object sender, EventArgs e)
   {
-    MoveBall();
+    game.MoveBall();
   }
 
-  private void MoveBall()
+  BreakoutGame game;
+
+  private void Form1_SizeChanged(object sender, EventArgs e)
   {
-    var oldLocation = ball.Location;
-
-    var maxX = Width - ball.Width - 20;
-    if (oldLocation.X >= maxX || oldLocation.X < 0)
-    {
-      XDirection = -XDirection;
-    }
-    var maxY = Height - ball.Height - 60;
-    if (oldLocation.Y >= maxY || oldLocation.Y < 0)
-    {
-      YDirection = -YDirection;
-    }
-
-    DoMove(oldLocation, maxX, maxY);
+    game?.SizeChanged(Width, Height);
   }
-
-  private void DoMove(Point oldLocation, int maxX, int maxY)
-  {
-    ball.Location = new Point(Math.Min(oldLocation.X + (XDirection * 10), maxX),
-                              Math.Min(oldLocation.Y + (YDirection * 10), maxY));
-  }
-
-  int XDirection = 1;
-
-  int YDirection = 1;
 }
