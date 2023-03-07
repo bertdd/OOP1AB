@@ -30,6 +30,4 @@ public class Paddle : GameObject
       Move();
     }
   }
-
-  public int Step { get; set; } = 50;
 }

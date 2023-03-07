@@ -10,7 +10,7 @@ public abstract class GameObject
 
   public int Height { get; internal set; }
 
-  public event EventHandler<EventArgs> Moved;
+  public event EventHandler<EventArgs>? Moved;
 
   protected void Move() => Moved?.Invoke(this, EventArgs.Empty);
 

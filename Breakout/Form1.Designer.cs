@@ -56,7 +56,7 @@
       // 
       timer.Enabled = true;
       timer.Interval = 10;
-      timer.Tick += timer_Tick;
+      timer.Tick += Timer_Tick;
       // 
       // Form1
       // 

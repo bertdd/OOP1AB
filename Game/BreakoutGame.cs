@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Game;
+﻿namespace Game;
 
 public class BreakoutGame
 {

@@ -20,7 +20,7 @@ public class Ball : GameObject
     if (oldLocation.X >= maxX || oldLocation.X < 0) {
       XDirection = -XDirection;
     }
-    var maxY = formHeight - Height - 60;
+    var maxY = formHeight - Height;
     if (oldLocation.Y >= maxY || oldLocation.Y < 0) {
       YDirection = -YDirection;
     }

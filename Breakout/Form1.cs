@@ -36,17 +36,18 @@ public partial class Form1 : Form
     var oldLocation = paddle.Location;
     var max = Width - paddle.Width - 20;
     var newLocation = new Point(Math.Min(oldLocation.X, max), oldLocation.Y);
-    if (game != null) {
+    if (game != null)
+    {
       game.Paddle.Location = newLocation;
     }
   }
 
-  private void timer_Tick(object sender, EventArgs e)
+  private void Timer_Tick(object sender, EventArgs e)
   {
     game.MoveBall();
   }
 
-  BreakoutGame game;
+  readonly BreakoutGame game;
 
   private void Form1_SizeChanged(object sender, EventArgs e)
   {
